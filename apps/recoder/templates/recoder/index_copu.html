@@ -1,0 +1,11 @@
+{% extends "recoder/base.html"%}
+{% block content %}
+<div class="alert alert-primary">recoder</div>
+{% for user_problem in user_problems %}
+<div class="card col-md-7 recoder-problem-content">
+    <section>
+        <img src="{{user_problems.UserProblems.problem_url}}" alt="画像" />
+    </section>
+</div>
+{% endfor %}
+{% endblock%}

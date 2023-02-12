@@ -1,0 +1,47 @@
+{% extends "recoder/base.html"%}
+{% block content %}
+<h2 class="m-5">新規追加（解いた問題の情報入力）</h2>
+<!-- エラー多すぎてなぞ -->
+<form action="{{ url_for('recoder.create') }}" method="post" enctype="multipart/form-data" novalidate="novalidate">
+    {{form.csrf_token}}
+    <form class="m-5" action="/" method='POST'>
+        <div class="form-group pb-3">
+            <label for="problem_url">問題 : </label>
+            <input type="text" class="form-control" name="problem_url" aria-describedby="title-help"
+                placeholder="Enter URL">
+            <small id="title-help" class="form-text text-muted">解き終わった問題URLを入力してください。</small>
+        </div>
+
+        <!-- マルチセレクト -->
+        <div class="form-group">
+            <label for="genre">ジャンルを選ぶ。</label>
+            <select multiple class="form-control" id="genre">
+                <option>全探索</option>
+                <option>シミュレーション</option>
+                <option>二分探索</option>
+                <option>動的計画法DP</option>
+                <!-- <option>貪欲法</option> -->
+                <option>累積和</option>
+                <option>グラフ</option>
+            </select>
+        </div>
+        <!-- is_solved -->
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="is_solved">
+            <label class="form-check-label" for="is_solved">リマインダーに追加する？（解けなかった問題）</label>
+        </div>
+        <!-- カレンダー -->
+        <div class="form-group pb-3" style="text-align:center">
+            <label for="due">リマインド日 : </label>
+            <input type="date" name="due" required>
+        </div>
+        <!-- アクション -->
+        <a class="btn btn-outline-primary" href="/" role="button">Return</a>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+    <!-- <h3 class="m-5">サンプルデータ</h3> -->
+    <li class="m-5">サンプル１：https://atcoder.jp/contests/arc147/tasks/arc147_a</li>
+    <li class="m-5">サンプル２：https://atcoder.jp/contests/abc283/tasks/abc283_a</li>
+    <!-- <li class="m-5">サンプル３：https://atcoder.jp/contests/abc283/tasks/abc283_d</li> -->
+    {% endblock%}
