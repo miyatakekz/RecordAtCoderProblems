@@ -1,0 +1,19 @@
+{% extends "recoder/base.html"%}
+{% block content %}
+<h2 class="m-5" style="text-align: center;">問題文</h2>
+<div class="card w-50 mb-3" style="margin: auto;">
+    <div class="card-body">
+        <h2 class="card-title">{{ post.Problem_Title }} <span class="ml-3" style="font-size: 0.5em;"></span></h2>
+        <br>
+        <h3 class="card-title">{{ post.Problem_Title_str }} <span class="ml-3" style="font-size: 0.5em;"></span></h3>
+        <p1>{{ post.Problem_Statement }}</p1>
+        <br>
+        <br>
+        <h4>復習日：{{ post.due.date() }}</h4>
+        <p2>{{ post.problem_path }}</p2>
+        <div class="pt-2">
+            <a class="btn btn-outline-success" href="/" role="button">Return</a>
+        </div>
+    </div>
+</div>
+{% endblock%}

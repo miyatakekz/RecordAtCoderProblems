@@ -1,0 +1,20 @@
+{% extends "recoder/base.html"%}
+{% block content %}
+<h2 class="m-5">解いた問題の情報入力</h2>
+<form action="{{ url_for('recoder.create') }}" method="POST" novalidate="novalidate">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+
+        {{ form.problem_path.label }} {{ form.problem_path(class_="form-control",placeholder="URLのみ受付") }}
+
+        {% for error in form.problem_path.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <p>{{ form.submit() }}</p>
+</form>
+<!-- <h3 class="m-5">サンプルデータ</h3> -->
+<li class="m-5">サンプル１：https://atcoder.jp/contests/arc147/tasks/arc147_a</li>
+<li class="m-5">サンプル２：https://atcoder.jp/contests/abc283/tasks/abc283_a</li>
+<!-- <li class="m-5">サンプル３：https://atcoder.jp/contests/abc283/tasks/abc283_d</li> -->
+{% endblock%}

@@ -11,7 +11,7 @@ pip install chromedriver-binary==99.0.4844.51.0
 """
 
 
-def get_text(url):
+def get_protext(url):
 
     from bs4 import BeautifulSoup
     from selenium import webdriver

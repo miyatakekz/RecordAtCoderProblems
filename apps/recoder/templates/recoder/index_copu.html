@@ -9,3 +9,20 @@
 </div>
 {% endfor %}
 {% endblock%}
+
+
+{% extends "recoder/base.html"%}
+{% block content %}
+<div class="alert alert-primary">recoder</div>
+<a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
+{% for user_problem in user_problems %}
+<div class="card-body">
+    {% if user_problem.due.date() < today %} <div class="alert alert-warning" role="alert">
+        期限切れです！
+        {% endif %}
+</div>
+
+<h2 class="card-title">{{ user_problem.title }}</h2>
+<p>期限：{{ user_problem.due.date() }}</p>
+{% endfor %}
+{% endblock%}

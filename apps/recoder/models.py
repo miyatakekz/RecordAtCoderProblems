@@ -10,8 +10,11 @@ class UserProblem(db.Model):
     problem_path = db.Column(db.String)
     is_solved = db.Column(db.Boolean, default=False)
     # add
+    Problem_Title = db.Column(db.String)
+    Problem_Title_str = db.Column(db.String)
     Problem_Statement = db.Column(db.String)
-    due = db.Column(db.DateTime, default=datetime.now)
+    due = db.Column(db.DateTime, default=datetime.now())
+    genre = db.Column(db.String)
     # データベース登録日時
-    created_at = db.Column(db.DateTime, default=datetime.now)
-    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())

@@ -1,14 +1,154 @@
 {% extends "recoder/base.html"%}
 {% block content %}
-<div class="alert alert-primary">recoder</div>
-<a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
-{% for user_problem in user_problems %}
-<div class="card-body">
-    {% if post.due.date() < today %} <div class="alert alert-warning" role="alert">
-        期限切れです！
+<div class="container">
+    <div class="alert alert-primary">recoder</div>
+    <a class="btn btn-info btn-lg m-5" href="/create" role="button">CREATE NEW TASK</a>
+
+    {% for user_problem in user_problems %}
+    <!-- card w-50 mb-3 -->
+
+    {% if user_problem.UserProblem.is_solved==true %}
+    <div class="card p-2" ,style="margin: auto;">
+        <div class="card-body">
+            {% if user_problem.UserProblem.due.date() < kon%} <div class="alert alert-warning" role="alert">
+                解き直してください！
+        </div>
+        {% endif %}
+        <h2 class="card-title">{{ user_problem.UserProblem.Problem_Title }} </h2>
+        <p1>　- 復習日：{{ user_problem.UserProblem.due.date() }}　ジャンル：{{ user_problem.UserProblem.genre }}</p1>
+        <br>
+        <p2>
+
+            <!-- ボタン郡 -->
+            <div class="btn-group">
+                <!-- 問題文ボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{url_for('recoder.detail',id=user_problem.UserProblem.id)}}" method="POST">
+                        {{ detail_form.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ detail_form.submit(class="btn btn-primary") }}
+                        {% else %}
+                        {{ detail_form.submit(class="btn btn-primary", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- 削除ボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{ url_for('recoder.delete', id=user_problem.UserProblem.id) }}" method="POST">
+                        {{ delete_form.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ delete_form.submit(class="btn btn-danger") }}
+                        {% else %}
+                        {{ delete_form.submit(class="btn btn-danger", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- doneボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{ url_for('recoder.update_done', id=user_problem.UserProblem.id) }}" method="POST">
+                        {{ update_form_done.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ update_form_done.submit(class="btn btn-success") }}
+                        {% else %}
+                        {{ update_form_done.submit(class="btn btn-success", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- 削除ボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{ url_for('recoder.update_add', id=user_problem.UserProblem.id) }}" method="POST">
+                        {{ update_form_add.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ update_form_add.submit(class="btn btn-outline-success") }}
+                        {% else %}
+                        {{ update_form_add.submit(class="btn btn-outline-success", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+
+                </div>
+                <!-- 削除ボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{ url_for('recoder.update_sub', id=user_problem.UserProblem.id) }}" method="POST">
+                        {{ update_form_sub.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ update_form_sub.submit(class="btn btn-outline-success") }}
+                        {% else %}
+                        {{ update_form_sub.submit(class="btn btn-outline-success", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+
+
+            </div>
+
+    </div>
 </div>
+
+
+</p2>
 {% endif %}
-<h2 class="card-title">{{ post.title }}</h2>
-<p>期限：{{ post.due.date() }}</p>
 {% endfor %}
+
+
+<!-- その他 -->
+{% for user_problem in user_problems %}
+{% if user_problem.UserProblem.is_solved==false %}
+<div class="card bg-secondary" ,style="margin: auto;">
+    <div class="card-body">
+        <h2 class="card-title">{{ user_problem.UserProblem.Problem_Title }} </h2>
+        <p1>　- 復習日：{{ user_problem.UserProblem.due.date() }}　ジャンル：{{ user_problem.UserProblem.genre }}</p1>
+        <br>
+        <p2>
+            <div class="btn-group">
+                <!-- 問題文ボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{url_for('recoder.detail',id=user_problem.UserProblem.id)}}" method="POST">
+                        {{ detail_form.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ detail_form.submit(class="btn btn-primary") }}
+                        {% else %}
+                        {{ detail_form.submit(class="btn btn-primary", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- 削除ボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{ url_for('recoder.delete', id=user_problem.UserProblem.id) }}" method="POST">
+                        {{ delete_form.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ delete_form.submit(class="btn btn-danger") }}
+                        {% else %}
+                        {{ delete_form.submit(class="btn btn-danger", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- doneボタンのフォームを追加する -->
+                <div class="p-2">
+                    <form action="{{ url_for('recoder.update_done', id=user_problem.UserProblem.id) }}" method="POST">
+                        {{ update_form_done.csrf_token }}
+                        {% if current_user.id == user_problem.User.id %}
+                        {{ update_form_done.submit(class="btn btn-success") }}
+                        {% else %}
+                        {{ update_form_done.submit(class="btn btn-success", disabled="disabled") }}
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+
+        </p2>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+</div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
 {% endblock%}
