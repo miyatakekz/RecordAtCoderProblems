@@ -6,7 +6,7 @@ class UserProblem(db.Model):
     __tablename__ = "user_problems"
     id = db.Column(db.Integer, primary_key=True)
     # ユーザーidをリレーション
-    user_id = db.Column(db.String, db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     problem_path = db.Column(db.String)
     is_solved = db.Column(db.Boolean, default=False)
     # add

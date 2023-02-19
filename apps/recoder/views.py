@@ -25,13 +25,18 @@ recoder = Blueprint("recoder", __name__, template_folder="templates")
 # recoderアプリケーションを使ってエンドポイント作成
 @recoder.route("/")
 def index():
+    if current_user.is_authenticated:
+        tmpid = current_user.id
+    else:
+        tmpid = 0
     user_problems = (
         db.session.query(User, UserProblem)
         .join(UserProblem)
-        .filter(User.id == UserProblem.user_id)
-        .order_by(UserProblem.due)
+        .filter(UserProblem.user_id == tmpid)
         .all()
+        # .order_by(UserProblem.due)
     )
+    # .join(UserProblem)
     # joinして一覧取得
     delete_form = DeleteForm()
     detail_form = Detail()
